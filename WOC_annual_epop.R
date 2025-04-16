@@ -25,13 +25,10 @@ basic_clean <- basic_raw %>%
 
 cps_annual_epop <- basic_clean %>% 
   filter(bhaa2 != "other") %>% 
-  group_by(date, bhaa2) %>% 
-  summarize(epop = round(weighted.mean(emp, w = basicwgt, na.rm = TRUE), 3),
+  group_by(year, bhaa2) %>% 
+  summarize(epop = round(weighted.mean(emp, w = basicwgt/12, na.rm = TRUE), 3),
             n = n()) %>% ungroup() %>% 
-  pivot_wider(id_cols = date, names_from = bhaa2, values_from = c("epop", "n")) %>% 
-  mutate(year = format(as.Date(date, format="%d/%m/%Y"),"%Y")) %>% 
-  group_by(year) %>% 
-  summarize(across(contains("epop") | contains("n_"), ~round(mean(.x), 3)))
+  pivot_wider(id_cols = year, names_from = bhaa2, values_from = c("epop", "n")) 
   
 cps_annual_paepop <- basic_clean %>% 
   filter(bhaa2 != "other", age >= 25 & age <= 54) %>%
