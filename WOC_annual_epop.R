@@ -15,11 +15,11 @@ basic_clean <- basic_raw %>%
                           (raceorig == 4 | raceorig == 5 | raceorig == 6) & hispanic == 0 ~ "aapi_alone_nh",
                           hispanic == 1 ~ "hispanic",
                           TRUE ~ "other"),
-         bhaa2 = case_when(raceorig == 2 & hispanic == 0 ~ "black_alone_nh",
+         bhaa2 = case_when(hispanic == 1 ~ "hispanic",
+                           raceorig == 2 & hispanic == 0 ~ "black_alone_nh",
                            raceorig == 3 ~ "aian_alone",
                            raceorig == 5 & hispanic == 0 ~ "asian_alone_nh",
                            raceorig == 6 ~ "nhpi_alone",
-                           hispanic == 1 ~ "hispanic",
                            TRUE ~ "other"),
          date = as.Date(paste(year, month, 1, sep = "-"), "%Y-%m-%d"))
 
