@@ -1,9 +1,5 @@
 library(tidyverse)
 library(epiextractr)
-library(epidatatools)
-library(here)
-library(blsR)
-library(openxlsx)
 
 ## Import CPS data #####
 basic_raw <- load_basic(2000:2024, year, month, basicwgt, age, raceorig, hispanic, unemp, emp, lfstat)
